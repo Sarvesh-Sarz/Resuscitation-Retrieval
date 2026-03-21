@@ -246,6 +246,3 @@ See `Emergency_System_Enhancement_Roadmap.docx` for the full technical improveme
 - [ ] ML-based demand forecasting for ambulance pre-positioning
 
 ---
-
-## 📄 License
-
