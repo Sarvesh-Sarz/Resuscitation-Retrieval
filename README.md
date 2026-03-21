@@ -4,7 +4,7 @@ A web-based emergency management platform built with **Flask** and **MySQL** tha
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
