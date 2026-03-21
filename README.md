@@ -249,5 +249,3 @@ See `Emergency_System_Enhancement_Roadmap.docx` for the full technical improveme
 
 ## 📄 License
 
-This project is developed for academic purposes.  
-**Roll 
