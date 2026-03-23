@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add Driver</h2>
+
+<form method="POST">
+    Driver Name:
+    <input type="text" name="name" required>
+
+    Phone:
+    <input type="text" name="phone" required>
+
+    License Number:
+    <input type="text" name="license" required>
+
+    <button type="submit">Add Driver</button>
+</form>
+
+{% endblock %}
