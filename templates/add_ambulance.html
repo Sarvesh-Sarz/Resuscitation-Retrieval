@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add Ambulance</h2>
+
+<form method="POST">
+    Vehicle Number:
+    <input type="text" name="vehicle" required>
+
+    Capacity:
+    <input type="number" name="capacity" required>
+
+    <button type="submit">Add Ambulance</button>
+</form>
+
+{% endblock %}
