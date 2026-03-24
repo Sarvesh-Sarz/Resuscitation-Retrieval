@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add Hospital</h2>
+
+<form method="POST">
+    Hospital Name:
+    <input type="text" name="name" required>
+
+    Address:
+    <input type="text" name="address" required>
+
+    Contact:
+    <input type="text" name="contact" required>
+
+    <button type="submit">Add Hospital</button>
+</form>
+
+{% endblock %}
