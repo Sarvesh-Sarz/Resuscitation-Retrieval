@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Register Emergency Call</h2>
+
+<form method="POST">
+
+    <label>Emergency Type</label>
+    <input type="text" name="emergency_type" required>
+
+    <label>Location</label>
+    <select name="location_id" required>
+        {% for loc in locations %}
+        <option value="{{ loc.location_id }}">
+            {{ loc.area }} - {{ loc.city }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Patient Name</label>
+    <input type="text" name="name" required>
+
+    <label>Age</label>
+    <input type="number" name="age" required>
+
+    <label>Gender</label>
+    <div class="radio-group">
+        <label>
+            <input type="radio" name="gender" value="Male" required> Male
+        </label>
+        <label>
+            <input type="radio" name="gender" value="Female"> Female
+        </label>
+        <label>
+            <input type="radio" name="gender" value="Other"> Other
+        </label>
+    </div>
+
+    <label>Contact</label>
+    <input type="text" name="contact" required>
+
+    <button type="submit">Register & Assign Ambulance</button>
+
+</form>
+
+{% endblock %}
