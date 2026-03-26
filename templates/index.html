@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Emergency Response Dashboard</h2>
+
+<p style="margin-bottom:20px;">
+Manage hospitals, ambulances, drivers and emergency calls efficiently.
+</p>
+
+<div style="display:flex; gap:20px; flex-wrap:wrap;">
+    <button onclick="location.href='/add_location'">Add Location</button>
+    <button onclick="location.href='/add_hospital'">Add Hospital</button>
+    <button onclick="location.href='/add_ambulance'">Add Ambulance</button>
+    <button onclick="location.href='/add_driver'">Add Driver</button>
+    <button onclick="location.href='/register'">Register Call</button>
+    <button onclick="location.href='/dispatches'">View Dispatches</button>
+</div>
+
+{% endblock %}
