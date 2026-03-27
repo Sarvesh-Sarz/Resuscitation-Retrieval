@@ -1,19 +1,22 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>Add Driver</h2>
+
+<h2>👤 Add Driver</h2>
+<p class="subtitle">Register a new driver. License number must be unique.</p>
 
 <form method="POST">
-    Driver Name:
-    <input type="text" name="name" required>
 
-    Phone:
-    <input type="text" name="phone" required>
+    <label>Driver Name</label>
+    <input type="text" name="name" placeholder="Full name" required>
 
-    License Number:
-    <input type="text" name="license" required>
+    <label>Phone Number</label>
+    <input type="text" name="phone" placeholder="10-digit number" maxlength="10" required>
+
+    <label>License Number</label>
+    <input type="text" name="license" placeholder="e.g. TN0120230012345" required>
 
     <button type="submit">Add Driver</button>
+
 </form>
 
 {% endblock %}
