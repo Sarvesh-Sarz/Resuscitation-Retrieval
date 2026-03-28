@@ -9,21 +9,23 @@
 <body>
 
 <nav>
-    <a href="/" class="nav-brand">🚑 ERS</a>
-    <a href="/add_location">📍 Location</a>
-    <a href="/add_hospital">🏥 Hospital</a>
-    <a href="/add_ambulance">🚑 Ambulance</a>
-    <a href="/add_driver">👤 Driver</a>
-    <a href="/register" class="nav-emergency">🆘 Register Call</a>
-    <a href="/dispatches">📋 Dispatches</a>
-    <a href="/history">🗂 History</a>
+    <a href="/">🚑 Dashboard</a>
+    <a href="/add_location">Add Location</a>
+    <a href="/add_hospital">Add Hospital</a>
+    <a href="/add_ambulance">Add Ambulance</a>
+    <a href="/add_driver">Add Driver</a>
+    <a href="/register">Register Call</a>
+    <a href="/dispatches">View Dispatches</a>
 </nav>
 
 <div class="container">
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
