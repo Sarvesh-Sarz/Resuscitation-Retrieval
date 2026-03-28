@@ -1,19 +1,16 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>Add Hospital</h2>
-
+<div class="page-header">
+    <h2>🏥 Add Hospital</h2>
+    <p class="subtitle">Register a hospital as a dispatch destination.</p>
+</div>
 <form method="POST">
-    Hospital Name:
-    <input type="text" name="name" required>
-
-    Address:
-    <input type="text" name="address" required>
-
-    Contact:
-    <input type="text" name="contact" required>
-
+    <label>Hospital Name</label>
+    <input type="text" name="name" placeholder="e.g. Apollo Hospital" required>
+    <label>Address</label>
+    <input type="text" name="address" placeholder="Full address" required>
+    <label>Contact Number</label>
+    <input type="text" name="contact" placeholder="10-digit number" maxlength="15" required>
     <button type="submit">Add Hospital</button>
 </form>
-
 {% endblock %}
