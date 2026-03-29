@@ -2,18 +2,34 @@
 {% block content %}
 
 <h2>Emergency Response Dashboard</h2>
+<p class="subtitle">Today's live overview — records auto-clear at midnight.</p>
 
-<p style="margin-bottom:20px;">
-Manage hospitals, ambulances, drivers and emergency calls efficiently.
-</p>
+<div class="stats-grid">
+    <div class="stat-card stat-blue">
+        <div class="stat-number">{{ active_calls }}</div>
+        <div class="stat-label">Active Calls Today</div>
+    </div>
+    <div class="stat-card stat-green">
+        <div class="stat-number">{{ available_ambulances }}</div>
+        <div class="stat-label">Ambulances Available</div>
+    </div>
+    <div class="stat-card stat-orange">
+        <div class="stat-number">{{ todays_dispatches }}</div>
+        <div class="stat-label">Dispatches Today</div>
+    </div>
+    <div class="stat-card stat-purple">
+        <div class="stat-number">{{ total_hospitals }}</div>
+        <div class="stat-label">Hospitals Registered</div>
+    </div>
+</div>
 
-<div style="display:flex; gap:20px; flex-wrap:wrap;">
-    <button onclick="location.href='/add_location'">Add Location</button>
-    <button onclick="location.href='/add_hospital'">Add Hospital</button>
-    <button onclick="location.href='/add_ambulance'">Add Ambulance</button>
-    <button onclick="location.href='/add_driver'">Add Driver</button>
-    <button onclick="location.href='/register'">Register Call</button>
-    <button onclick="location.href='/dispatches'">View Dispatches</button>
+<div class="action-grid">
+    <button onclick="location.href='/add_location'">📍 Add Location</button>
+    <button onclick="location.href='/add_hospital'">🏥 Add Hospital</button>
+    <button onclick="location.href='/add_ambulance'">🚑 Add Ambulance</button>
+    <button onclick="location.href='/add_driver'">👤 Add Driver</button>
+    <button class="btn-danger" onclick="location.href='/register'">🆘 Register Emergency Call</button>
+    <button class="btn-secondary" onclick="location.href='/dispatches'">📋 View Dispatches</button>
 </div>
 
 {% endblock %}
