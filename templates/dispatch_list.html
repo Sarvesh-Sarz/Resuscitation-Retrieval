@@ -1,26 +1,53 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>Dispatch Records</h2>
 
-<table border="1" width="100%">
-    <tr>
-        <th>Dispatch ID</th>
-        <th>Patient</th>
-        <th>Ambulance</th>
-        <th>Driver</th>
-        <th>Hospital</th>
-    </tr>
+<h2>Today's Dispatch Records</h2>
+<p class="subtitle">Showing all dispatches registered today. Records from previous days are automatically removed.</p>
 
-    {% for row in data %}
-    <tr>
-        <td>{{ row.dispatch_id }}</td>
-        <td>{{ row.name }}</td>
-        <td>{{ row.vehicle_number }}</td>
-        <td>{{ row.driver_name }}</td>
-        <td>{{ row.hospital_name }}</td>
-    </tr>
-    {% endfor %}
+{% if data %}
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Patient</th>
+            <th>Age / Gender</th>
+            <th>Contact</th>
+            <th>Emergency</th>
+            <th>Location</th>
+            <th>Ambulance</th>
+            <th>Driver</th>
+            <th>Hospital</th>
+            <th>Status</th>
+            <th>Dispatched At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.dispatch_id }}</td>
+            <td><strong>{{ row.patient_name }}</strong></td>
+            <td>{{ row.age }} / {{ row.gender }}</td>
+            <td>{{ row.contact }}</td>
+            <td>{{ row.emergency_type }}</td>
+            <td>{{ row.area }}, {{ row.city }}</td>
+            <td>{{ row.vehicle_number }}</td>
+            <td>{{ row.driver_name }}<br><small>{{ row.driver_phone }}</small></td>
+            <td>{{ row.hospital_name }}</td>
+            <td>
+                <span class="badge badge-{{ row.status | lower }}">{{ row.status }}</span>
+            </td>
+            <td>{{ row.dispatch_time.strftime('%I:%M %p') if row.dispatch_time else '—' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <p>🚑 No dispatches recorded today yet.</p>
+    <button onclick="location.href='/register'">Register an Emergency Call</button>
+</div>
+{% endif %}
 
 {% endblock %}
