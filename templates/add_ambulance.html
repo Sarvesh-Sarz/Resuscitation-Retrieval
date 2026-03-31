@@ -1,19 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h2>🚑 Add Ambulance</h2>
-<p class="subtitle">Register a new ambulance unit. Vehicle number must be unique.</p>
-
+<div class="page-header">
+    <h2>Add Ambulance</h2>
+    <p class="subtitle">Register a new ambulance unit. Vehicle number must be unique.</p>
+</div>
 <form method="POST">
-
     <label>Vehicle Number</label>
     <input type="text" name="vehicle" placeholder="e.g. TN01AB1234" required>
-
-    <label>Capacity (no. of patients)</label>
+    <label>Capacity (number of patients)</label>
     <input type="number" name="capacity" min="1" max="10" placeholder="e.g. 2" required>
-
     <button type="submit">Add Ambulance</button>
-
 </form>
-
 {% endblock %}
