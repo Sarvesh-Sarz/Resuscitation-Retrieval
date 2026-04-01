@@ -1,22 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h2>📍 Add Location</h2>
-<p class="subtitle">Register a new service area for emergency coverage.</p>
-
+<div class="page-header">
+    <h2> Add Location</h2>
+    <p class="subtitle">Register a new service area for emergency coverage.</p>
+</div>
 <form method="POST">
-
     <label>Area / Locality</label>
     <input type="text" name="area" placeholder="e.g. Anna Nagar" required>
-
     <label>City</label>
     <input type="text" name="city" placeholder="e.g. Chennai" required>
-
     <label>Pincode</label>
     <input type="text" name="pincode" placeholder="6-digit pincode" maxlength="6" required>
-
     <button type="submit">Add Location</button>
-
 </form>
-
 {% endblock %}
