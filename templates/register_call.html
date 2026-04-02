@@ -1,24 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>🆘 Register Emergency Call</h2>
-<p class="subtitle">Fill in all details. An available ambulance will be auto-assigned.</p>
+<div class="page-header">
+    <h2> Register Emergency Call</h2>
+    <p class="subtitle">Fill in all details. An available ambulance will be auto-assigned immediately.</p>
+</div>
 
 <form method="POST">
 
     <label>Emergency Type</label>
-    <input type="text" name="emergency_type" placeholder="e.g. Cardiac Arrest, Road Accident" required>
+    <input type="text" name="emergency_type"
+           placeholder="e.g. Cardiac Arrest, Road Accident, Fire Injury" required>
 
     <label>Location</label>
     <select name="location_id" required>
-        <option value="" disabled selected>— Select a location —</option>
+        <option value="" disabled selected>— Select location —</option>
         {% for loc in locations %}
         <option value="{{ loc.location_id }}">{{ loc.area }} — {{ loc.city }} ({{ loc.pincode }})</option>
         {% endfor %}
     </select>
 
-    <label>Patient Name</label>
-    <input type="text" name="name" placeholder="Full name" required>
+    <div style="border-top:1px solid #e2e8f0; margin:24px 0 18px; padding-top:4px;">
+        <p style="font-weight:700; color:#1e3a8a; font-size:0.95rem;">Patient Details</p>
+    </div>
+
+    <label>Full Name</label>
+    <input type="text" name="name" placeholder="Patient's full name" required>
 
     <label>Age</label>
     <input type="number" name="age" min="1" max="119" placeholder="e.g. 45" required>
@@ -31,9 +38,12 @@
     </div>
 
     <label>Contact Number</label>
-    <input type="text" name="contact" placeholder="10-digit mobile number" maxlength="10" required>
+    <input type="text" name="contact" placeholder="10-digit mobile number"
+           maxlength="10" required>
 
-    <button class="btn-danger" type="submit">🚑 Register & Dispatch Ambulance</button>
+    <button type="submit" class="btn-danger" style="margin-top:28px;">
+         Register & Dispatch Ambulance
+    </button>
 
 </form>
 
