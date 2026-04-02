@@ -1,35 +1,71 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>Emergency Response Dashboard</h2>
-<p class="subtitle">Today's live overview — records auto-clear at midnight.</p>
+<div class="page-header">
+    <h2>Emergency Response Dashboard</h2>
+    <p class="subtitle">Live overview for today — records auto-archive at midnight</p>
+</div>
+
+{% if pending_calls > 0 %}
+<div class="alert alert-warning">
+     <strong>{{ pending_calls }} call(s) waiting</strong> — no ambulance available to dispatch right now.
+</div>
+{% endif %}
 
 <div class="stats-grid">
     <div class="stat-card stat-blue">
+        <div class="stat-icon"></div>
         <div class="stat-number">{{ active_calls }}</div>
-        <div class="stat-label">Active Calls Today</div>
+        <div class="stat-label">Calls Today</div>
     </div>
     <div class="stat-card stat-green">
+        <div class="stat-icon"></div>
         <div class="stat-number">{{ available_ambulances }}</div>
-        <div class="stat-label">Ambulances Available</div>
+        <div class="stat-label">Ambulances Free</div>
+    </div>
+    <div class="stat-card stat-red">
+        <div class="stat-icon"></div>
+        <div class="stat-number">{{ busy_ambulances }}</div>
+        <div class="stat-label">Ambulances Busy</div>
     </div>
     <div class="stat-card stat-orange">
+        <div class="stat-icon"></div>
         <div class="stat-number">{{ todays_dispatches }}</div>
         <div class="stat-label">Dispatches Today</div>
     </div>
-    <div class="stat-card stat-purple">
-        <div class="stat-number">{{ total_hospitals }}</div>
-        <div class="stat-label">Hospitals Registered</div>
+    <div class="stat-card stat-teal">
+        <div class="stat-icon"></div>
+        <div class="stat-number">{{ resolved_today }}</div>
+        <div class="stat-label">Resolved Today</div>
     </div>
 </div>
 
+<div class="section-title">Quick Actions</div>
 <div class="action-grid">
-    <button onclick="location.href='/add_location'">📍 Add Location</button>
-    <button onclick="location.href='/add_hospital'">🏥 Add Hospital</button>
-    <button onclick="location.href='/add_ambulance'">🚑 Add Ambulance</button>
-    <button onclick="location.href='/add_driver'">👤 Add Driver</button>
-    <button class="btn-danger" onclick="location.href='/register'">🆘 Register Emergency Call</button>
-    <button class="btn-secondary" onclick="location.href='/dispatches'">📋 View Dispatches</button>
+    <a href="/register" class="action-btn action-btn-danger">
+        <span class="action-icon"></span>
+        <span class="action-text">Register Emergency Call</span>
+    </a>
+    <a href="/dispatches" class="action-btn action-btn-primary">
+        <span class="action-icon"></span>
+        <span class="action-text">View Dispatches</span>
+    </a>
+    <a href="/add_ambulance" class="action-btn action-btn-secondary">
+        <span class="action-icon"></span>
+        <span class="action-text">Add Ambulance</span>
+    </a>
+    <a href="/add_driver" class="action-btn action-btn-secondary">
+        <span class="action-icon"></span>
+        <span class="action-text">Add Driver</span>
+    </a>
+    <a href="/add_hospital" class="action-btn action-btn-secondary">
+        <span class="action-icon"></span>
+        <span class="action-text">Add Hospital</span>
+    </a>
+    <a href="/add_location" class="action-btn action-btn-secondary">
+        <span class="action-icon"></span>
+        <span class="action-text">Add Location</span>
+    </a>
 </div>
 
 {% endblock %}
