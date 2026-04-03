@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h2>Dispatch History</h2>
+    <p class="subtitle">Archived records from previous days. Most recent first.</p>
+</div>
+
+{% if records %}
+<div class="table-wrapper">
+<table>
+    <thead>
+        <tr>
+            <th>Dispatch ID</th>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Age / Gender</th>
+            <th>Contact</th>
+            <th>Emergency</th>
+            <th>Ambulance</th>
+            <th>Driver</th>
+            <th>Hospital</th>
+            <th>Dispatched</th>
+            <th>Arrived</th>
+            <th>Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in records %}
+        <tr>
+            <td>#{{ row.dispatch_id }}</td>
+            <td>{{ row.call_created_at.strftime('%d %b %Y') if row.call_created_at else '—' }}</td>
+            <td><strong>{{ row.patient_name }}</strong></td>
+            <td>{{ row.patient_age }} / {{ row.patient_gender }}</td>
+            <td>{{ row.patient_contact }}</td>
+            <td>{{ row.emergency_type }}</td>
+            <td>{{ row.vehicle_number }}</td>
+            <td>{{ row.driver_name }}</td>
+            <td>{{ row.hospital_name }}</td>
+            <td>{{ row.dispatch_time.strftime('%I:%M %p') if row.dispatch_time else '—' }}</td>
+            <td>{{ row.arrival_time.strftime('%I:%M %p') if row.arrival_time else '—' }}</td>
+            <td>{{ row.completion_time.strftime('%I:%M %p') if row.completion_time else '—' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% else %}
+<div class="empty-state">
+    <p> No archived records yet. History builds up after the first midnight.</p>
+</div>
+{% endif %}
+
+{% endblock %}
