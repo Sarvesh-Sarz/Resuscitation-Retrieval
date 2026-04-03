@@ -1,0 +1,5 @@
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=root
+DB_NAME=emergency_system_24bds1109
+SECRET_KEY=replace-this-with-a-random-secret-key
