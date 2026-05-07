@@ -2,13 +2,14 @@
 {% block content %}
 <div class="page-header">
     <h2>Add Ambulance</h2>
-    <p class="subtitle">Register a new ambulance unit. Vehicle number must be unique.</p>
+    <p class="subtitle">// vehicle number must be unique</p>
 </div>
-<form method="POST">
+<form method="POST" style="max-width:420px;">
     <label>Vehicle Number</label>
     <input type="text" name="vehicle" placeholder="e.g. TN01AB1234" required>
-    <label>Capacity (number of patients)</label>
-    <input type="number" name="capacity" min="1" max="10" placeholder="e.g. 2" required>
+    <label>Capacity (patients)</label>
+    <input type="number" name="capacity" min="1" max="10" placeholder="1" required>
     <button type="submit">Add Ambulance</button>
 </form>
 {% endblock %}
+
