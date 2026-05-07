@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="page-header">
-    <h2> Add Driver</h2>
-    <p class="subtitle">Register a new driver. License number must be unique.</p>
+    <h2>Add Driver</h2>
+    <p class="subtitle">// license number must be unique</p>
 </div>
-<form method="POST">
+<form method="POST" style="max-width:420px;">
     <label>Full Name</label>
-    <input type="text" name="name" placeholder="Driver's full name" required>
+    <input type="text" name="name" placeholder="driver's full name" required>
     <label>Phone Number</label>
     <input type="text" name="phone" placeholder="10-digit number" maxlength="10" required>
     <label>License Number</label>
