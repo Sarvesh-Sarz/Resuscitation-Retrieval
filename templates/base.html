@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergency Response System</title>
+    <title>ERS — Emergency Response System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
+<div class="sys-bar">
+    <span>EMERGENCY RESPONSE SYSTEM // DISPATCH MANAGEMENT</span>
+    <span id="sys-time"></span>
+</div>
+
 <nav>
-    <a href="/" class="nav-brand"> ERS</a>
-    <a href="/add_location"> Location</a>
-    <a href="/add_hospital"> Hospital</a>
-    <a href="/add_ambulance"> Ambulance</a>
-    <a href="/add_driver"> Driver</a>
-    <a href="/register" class="nav-emergency"> Register Call</a>
-    <a href="/dispatches"> Dispatches</a>
-    <a href="/history"> History</a>
+    <a href="/" class="nav-brand">[ ERS ]</a>
+    <a href="/add_location">Location</a>
+    <a href="/add_hospital">Hospital</a>
+    <a href="/add_ambulance">Ambulance</a>
+    <a href="/add_driver">Driver</a>
+    <a href="/register" class="nav-emergency">// Register Call</a>
+    <a href="/dispatches">Dispatches</a>
+    <a href="/history">History</a>
 </nav>
 
 <div class="container">
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -29,7 +35,19 @@
     {% endwith %}
 
     {% block content %}{% endblock %}
+
 </div>
+
+<script>
+    function tick() {
+        const now = new Date();
+        document.getElementById('sys-time').textContent =
+            now.toLocaleDateString('en-IN') + '  ' +
+            now.toLocaleTimeString('en-IN', { hour12: false });
+    }
+    tick();
+    setInterval(tick, 1000);
+</script>
 
 </body>
 </html>
