@@ -2,38 +2,37 @@
 {% block content %}
 
 <div class="page-header">
-    <h2> Today's Dispatches</h2>
-    <p class="subtitle">All emergency calls for today. Use the action buttons to update each dispatch status.</p>
+    <h2>Dispatch Records</h2>
+    <p class="subtitle">// today's operations — use action buttons to update status</p>
 </div>
 
-<!-- PENDING / WAITING QUEUE -->
 {% if pending %}
-<div class="section-title" style="color:#b45309;">⏳ Waiting for Ambulance ({{ pending|length }})</div>
-<div class="table-wrapper" style="margin-bottom:36px;">
+<div class="section-title" style="color:#888800;">// Waiting Queue — {{ pending|length }} unassigned</div>
+<div class="table-wrapper" style="margin-bottom:32px;">
 <table>
     <thead>
         <tr>
             <th>Call ID</th>
             <th>Patient</th>
-            <th>Age / Gender</th>
+            <th>Age / Sex</th>
             <th>Contact</th>
             <th>Emergency</th>
             <th>Location</th>
-            <th>Registered At</th>
+            <th>Registered</th>
             <th>Status</th>
         </tr>
     </thead>
     <tbody>
         {% for row in pending %}
         <tr>
-            <td>#{{ row.call_id }}</td>
+            <td><strong>#{{ row.call_id }}</strong></td>
             <td><strong>{{ row.patient_name }}</strong></td>
             <td>{{ row.age }} / {{ row.gender }}</td>
             <td>{{ row.contact }}</td>
             <td>{{ row.emergency_type }}</td>
             <td>{{ row.area }}, {{ row.city }}</td>
-            <td>{{ row.created_at.strftime('%I:%M %p') if row.created_at else '—' }}</td>
-            <td><span class="badge badge-pending">⏳ Waiting</span></td>
+            <td>{{ row.created_at.strftime('%H:%M:%S') if row.created_at else '—' }}</td>
+            <td><span class="badge badge-pending">Waiting</span></td>
         </tr>
         {% endfor %}
     </tbody>
@@ -41,18 +40,18 @@
 </div>
 {% endif %}
 
-<!-- ACTIVE DISPATCHES -->
-<div class="section-title">Active & Completed Dispatches</div>
+<div class="section-title">// Active &amp; Completed Dispatches</div>
+
 {% if data %}
 <div class="table-wrapper">
 <table>
     <thead>
         <tr>
-            <th>#</th>
+            <th>ID</th>
             <th>Patient</th>
             <th>Emergency</th>
             <th>Location</th>
-            <th>Ambulance</th>
+            <th>Unit</th>
             <th>Driver</th>
             <th>Hospital</th>
             <th>Dispatched</th>
@@ -66,67 +65,59 @@
     <tbody>
         {% for row in data %}
         <tr class="{% if row.call_status == 'Resolved' %}row-resolved{% elif row.arrival_time %}row-arrived{% else %}row-active{% endif %}">
-            <td>{{ row.dispatch_id }}</td>
+            <td><strong>{{ row.dispatch_id }}</strong></td>
             <td>
-                <strong>{{ row.patient_name }}</strong><br>
+                <strong>{{ row.patient_name }}</strong>
                 <small>{{ row.age }}/{{ row.gender }} · {{ row.contact }}</small>
             </td>
             <td>{{ row.emergency_type }}</td>
             <td>{{ row.area }}, {{ row.city }}</td>
             <td>
-                <strong>{{ row.vehicle_number }}</strong><br>
-                <small>Cap: {{ row.capacity }}</small>
+                <strong>{{ row.vehicle_number }}</strong>
+                <small>cap {{ row.capacity }}</small>
             </td>
             <td>
-                {{ row.driver_name }}<br>
+                {{ row.driver_name }}
                 <small>{{ row.driver_phone }}</small>
             </td>
             <td>{{ row.hospital_name }}</td>
-            <td>{{ row.dispatch_time.strftime('%I:%M %p') if row.dispatch_time else '—' }}</td>
-            <td>
-                {% if row.arrival_time %}
-                    <span style="color:#16a34a;">{{ row.arrival_time.strftime('%I:%M %p') }}</span>
-                {% else %}
-                    <span style="color:#94a3b8;">—</span>
-                {% endif %}
+            <td style="font-family:var(--mono);font-size:0.75rem;">
+                {{ row.dispatch_time.strftime('%H:%M:%S') if row.dispatch_time else '—' }}
             </td>
-            <td>
-                {% if row.completion_time %}
-                    <span style="color:#1d2a46;">{{ row.completion_time.strftime('%I:%M %p') }}</span>
-                {% else %}
-                    <span style="color:#94a3b8;">—</span>
-                {% endif %}
+            <td style="font-family:var(--mono);font-size:0.75rem;color:{% if row.arrival_time %}#888888{% else %}var(--text-dim){% endif %};">
+                {{ row.arrival_time.strftime('%H:%M:%S') if row.arrival_time else '—' }}
+            </td>
+            <td style="font-family:var(--mono);font-size:0.75rem;color:{% if row.completion_time %}#888888{% else %}var(--text-dim){% endif %};">
+                {{ row.completion_time.strftime('%H:%M:%S') if row.completion_time else '—' }}
             </td>
             <td>
                 {% if row.payment_amount %}
-                    <span class="badge badge-paid">₹{{ "%.0f"|format(row.payment_amount) }}</span><br>
+                    <span class="badge badge-paid">₹{{ "%.0f"|format(row.payment_amount) }}</span>
                     <small>{{ row.payment_method }}</small>
                 {% elif row.call_status == 'Resolved' %}
-                    <a href="/payment/{{ row.dispatch_id }}" class="btn-link-warn">Add Payment</a>
+                    <a href="/payment/{{ row.dispatch_id }}" class="btn-link-warn">+ add</a>
                 {% else %}
-                    <span style="color:#94a3b8;">—</span>
+                    <span style="color:var(--text-dim);font-family:var(--mono);font-size:0.72rem;">—</span>
                 {% endif %}
             </td>
-            <td>
-                <span class="badge badge-{{ row.call_status | lower }}">{{ row.call_status }}</span>
-            </td>
+            <td><span class="badge badge-{{ row.call_status | lower }}">{{ row.call_status }}</span></td>
             <td class="actions-cell">
                 {% if row.call_status != 'Resolved' %}
                     {% if not row.arrival_time %}
-                    <form method="POST" action="/dispatch/arrived/{{ row.dispatch_id }}" style="margin-bottom:6px;">
-                        <button type="submit" class="btn-sm btn-arrive">📍 Mark Arrived</button>
+                    <form method="POST" action="/dispatch/arrived/{{ row.dispatch_id }}" style="margin-bottom:4px;">
+                        <button type="submit" class="btn-sm btn-arrive">Arrived</button>
                     </form>
                     {% endif %}
                     {% if row.arrival_time and not row.completion_time %}
                     <form method="POST" action="/dispatch/complete/{{ row.dispatch_id }}">
-                        <button type="submit" class="btn-sm btn-complete">✅ Mark Completed</button>
+                        <button type="submit" class="btn-sm btn-complete">Complete</button>
                     </form>
                     {% endif %}
                 {% else %}
                     {% if not row.payment_amount %}
-                    <a href="/payment/{{ row.dispatch_id }}" class="btn-sm btn-pay">💰 Add Payment</a>
+                    <a href="/payment/{{ row.dispatch_id }}" class="btn-sm btn-pay">Payment</a>
                     {% else %}
-                    <span class="done-label">✔ Done</span>
+                    <span class="done-label">✓ Done</span>
                     {% endif %}
                 {% endif %}
             </td>
@@ -137,8 +128,8 @@
 </div>
 {% else %}
 <div class="empty-state">
-    <p>No dispatches recorded today yet.</p>
-    <a href="/register" class="action-btn action-btn-danger" style="display:inline-flex;width:auto;padding:12px 28px;">Register an Emergency Call</a>
+    <p>// no dispatches recorded today</p>
+    <a href="/register" class="action-btn action-btn-danger" style="display:inline-flex;width:auto;padding:12px 24px;">Register Emergency Call</a>
 </div>
 {% endif %}
 
