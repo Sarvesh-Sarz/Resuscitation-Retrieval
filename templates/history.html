@@ -3,7 +3,7 @@
 
 <div class="page-header">
     <h2>Dispatch History</h2>
-    <p class="subtitle">Archived records from previous days. Most recent first.</p>
+    <p class="subtitle">// archived records from previous days — max 200 entries</p>
 </div>
 
 {% if records %}
@@ -14,10 +14,10 @@
             <th>Dispatch ID</th>
             <th>Date</th>
             <th>Patient</th>
-            <th>Age / Gender</th>
+            <th>Age / Sex</th>
             <th>Contact</th>
             <th>Emergency</th>
-            <th>Ambulance</th>
+            <th>Unit</th>
             <th>Driver</th>
             <th>Hospital</th>
             <th>Dispatched</th>
@@ -28,18 +28,26 @@
     <tbody>
         {% for row in records %}
         <tr>
-            <td>#{{ row.dispatch_id }}</td>
-            <td>{{ row.call_created_at.strftime('%d %b %Y') if row.call_created_at else '—' }}</td>
+            <td><strong>#{{ row.dispatch_id }}</strong></td>
+            <td style="font-family:var(--mono);font-size:0.75rem;">
+                {{ row.call_created_at.strftime('%d/%m/%Y') if row.call_created_at else '—' }}
+            </td>
             <td><strong>{{ row.patient_name }}</strong></td>
             <td>{{ row.patient_age }} / {{ row.patient_gender }}</td>
             <td>{{ row.patient_contact }}</td>
             <td>{{ row.emergency_type }}</td>
-            <td>{{ row.vehicle_number }}</td>
+            <td style="font-family:var(--mono);">{{ row.vehicle_number }}</td>
             <td>{{ row.driver_name }}</td>
             <td>{{ row.hospital_name }}</td>
-            <td>{{ row.dispatch_time.strftime('%I:%M %p') if row.dispatch_time else '—' }}</td>
-            <td>{{ row.arrival_time.strftime('%I:%M %p') if row.arrival_time else '—' }}</td>
-            <td>{{ row.completion_time.strftime('%I:%M %p') if row.completion_time else '—' }}</td>
+            <td style="font-family:var(--mono);font-size:0.75rem;">
+                {{ row.dispatch_time.strftime('%H:%M:%S') if row.dispatch_time else '—' }}
+            </td>
+            <td style="font-family:var(--mono);font-size:0.75rem;">
+                {{ row.arrival_time.strftime('%H:%M:%S') if row.arrival_time else '—' }}
+            </td>
+            <td style="font-family:var(--mono);font-size:0.75rem;">
+                {{ row.completion_time.strftime('%H:%M:%S') if row.completion_time else '—' }}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
@@ -47,7 +55,7 @@
 </div>
 {% else %}
 <div class="empty-state">
-    <p> No archived records yet. History builds up after the first midnight.</p>
+    <p>// no archived records — history builds after first midnight</p>
 </div>
 {% endif %}
 
