@@ -2,16 +2,19 @@
 {% block content %}
 
 <div class="page-header">
-    <h2> Record Payment</h2>
-    <p class="subtitle">Dispatch #{{ dispatch.dispatch_id }} — {{ dispatch.patient_name }}</p>
+    <h2>Record Payment</h2>
+    <p class="subtitle">// dispatch #{{ dispatch.dispatch_id }} — {{ dispatch.patient_name }}</p>
 </div>
 
-<!-- Dispatch Summary -->
 <div class="info-card">
     <div class="info-grid">
         <div class="info-item">
             <span class="info-label">Patient</span>
-            <span class="info-value">{{ dispatch.patient_name }} · {{ dispatch.contact }}</span>
+            <span class="info-value">{{ dispatch.patient_name }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Contact</span>
+            <span class="info-value">{{ dispatch.contact }}</span>
         </div>
         <div class="info-item">
             <span class="info-label">Emergency</span>
@@ -30,35 +33,36 @@
             <span class="info-value">{{ dispatch.hospital_name }}</span>
         </div>
         <div class="info-item">
-            <span class="info-label">Dispatched At</span>
-            <span class="info-value">{{ dispatch.dispatch_time.strftime('%I:%M %p') if dispatch.dispatch_time else '—' }}</span>
+            <span class="info-label">Dispatched</span>
+            <span class="info-value">{{ dispatch.dispatch_time.strftime('%H:%M:%S') if dispatch.dispatch_time else '—' }}</span>
         </div>
         <div class="info-item">
-            <span class="info-label">Arrived At</span>
-            <span class="info-value">{{ dispatch.arrival_time.strftime('%I:%M %p') if dispatch.arrival_time else '—' }}</span>
+            <span class="info-label">Arrived</span>
+            <span class="info-value">{{ dispatch.arrival_time.strftime('%H:%M:%S') if dispatch.arrival_time else '—' }}</span>
         </div>
         <div class="info-item">
-            <span class="info-label">Completed At</span>
-            <span class="info-value">{{ dispatch.completion_time.strftime('%I:%M %p') if dispatch.completion_time else '—' }}</span>
+            <span class="info-label">Completed</span>
+            <span class="info-value">{{ dispatch.completion_time.strftime('%H:%M:%S') if dispatch.completion_time else '—' }}</span>
         </div>
     </div>
 </div>
 
 {% if existing %}
 <div class="alert alert-warning">
-     A payment of ₹{{ "%.2f"|format(existing.amount) }} ({{ existing.payment_method }}) was already recorded. Submitting again will update it.
+    !! Payment of ₹{{ "%.2f"|format(existing.amount) }} ({{ existing.payment_method }}) already recorded. Submitting will update it.
 </div>
 {% endif %}
 
-<form method="POST">
+<form method="POST" style="max-width:420px;">
+
     <label>Amount (₹)</label>
     <input type="number" name="amount" step="0.01" min="0"
-           placeholder="e.g. 1500.00"
+           placeholder="0.00"
            value="{{ existing.amount if existing else '' }}" required>
 
     <label>Payment Method</label>
     <select name="payment_method" required>
-        <option value="" disabled {% if not existing %}selected{% endif %}>— Select method —</option>
+        <option value="" disabled {% if not existing %}selected{% endif %}>-- select --</option>
         <option value="Cash"      {% if existing and existing.payment_method == 'Cash' %}selected{% endif %}>Cash</option>
         <option value="Card"      {% if existing and existing.payment_method == 'Card' %}selected{% endif %}>Card</option>
         <option value="UPI"       {% if existing and existing.payment_method == 'UPI' %}selected{% endif %}>UPI</option>
@@ -72,10 +76,11 @@
         <option value="Waived"  {% if existing and existing.payment_status == 'Waived' %}selected{% endif %}>Waived</option>
     </select>
 
-    <div style="display:flex; gap:12px; margin-top:20px;">
-        <button type="submit" style="width:auto; padding:13px 32px;">💾 Save Payment</button>
+    <div style="display:flex;gap:12px;margin-top:24px;">
+        <button type="submit" style="width:auto;padding:11px 28px;">Save Payment</button>
         <a href="/dispatches" class="btn-cancel">Cancel</a>
     </div>
+
 </form>
 
 {% endblock %}
