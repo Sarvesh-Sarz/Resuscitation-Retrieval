@@ -2,68 +2,74 @@
 {% block content %}
 
 <div class="page-header">
-    <h2>Emergency Response Dashboard</h2>
-    <p class="subtitle">Live overview for today — records auto-archive at midnight</p>
+    <h2>Dispatch Dashboard</h2>
+    <p class="subtitle">// live operational overview — records clear at 00:00:00</p>
 </div>
 
 {% if pending_calls > 0 %}
 <div class="alert alert-warning">
-     <strong>{{ pending_calls }} call(s) waiting</strong> — no ambulance available to dispatch right now.
+    !! {{ pending_calls }} CALL(S) WAITING — NO AMBULANCE AVAILABLE FOR ASSIGNMENT
 </div>
 {% endif %}
 
 <div class="stats-grid">
-    <div class="stat-card stat-blue">
-        <div class="stat-icon"></div>
+    <div class="stat-card">
+        <div class="stat-icon">//</div>
         <div class="stat-number">{{ active_calls }}</div>
         <div class="stat-label">Calls Today</div>
     </div>
-    <div class="stat-card stat-green">
-        <div class="stat-icon"></div>
+    <div class="stat-card">
+        <div class="stat-icon">OK</div>
         <div class="stat-number">{{ available_ambulances }}</div>
-        <div class="stat-label">Ambulances Free</div>
+        <div class="stat-label">Units Free</div>
     </div>
-    <div class="stat-card stat-red">
-        <div class="stat-icon"></div>
+    <div class="stat-card">
+        <div class="stat-icon">!!</div>
         <div class="stat-number">{{ busy_ambulances }}</div>
-        <div class="stat-label">Ambulances Busy</div>
+        <div class="stat-label">Units Busy</div>
     </div>
-    <div class="stat-card stat-orange">
-        <div class="stat-icon"></div>
+    <div class="stat-card">
+        <div class="stat-icon">→</div>
         <div class="stat-number">{{ todays_dispatches }}</div>
-        <div class="stat-label">Dispatches Today</div>
+        <div class="stat-label">Dispatched</div>
     </div>
-    <div class="stat-card stat-teal">
-        <div class="stat-icon"></div>
+    <div class="stat-card">
+        <div class="stat-icon">~</div>
+        <div class="stat-number">{{ avg_response }}<span class="stat-unit">m</span></div>
+        <div class="stat-label">Avg Response</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">✓</div>
         <div class="stat-number">{{ resolved_today }}</div>
-        <div class="stat-label">Resolved Today</div>
+        <div class="stat-label">Resolved</div>
     </div>
 </div>
 
-<div class="section-title">Quick Actions</div>
+<div class="section-title">// Quick Actions</div>
+
 <div class="action-grid">
     <a href="/register" class="action-btn action-btn-danger">
-        <span class="action-icon"></span>
+        <span class="action-icon">!!</span>
         <span class="action-text">Register Emergency Call</span>
     </a>
     <a href="/dispatches" class="action-btn action-btn-primary">
-        <span class="action-icon"></span>
+        <span class="action-icon">→</span>
         <span class="action-text">View Dispatches</span>
     </a>
     <a href="/add_ambulance" class="action-btn action-btn-secondary">
-        <span class="action-icon"></span>
+        <span class="action-icon">+</span>
         <span class="action-text">Add Ambulance</span>
     </a>
     <a href="/add_driver" class="action-btn action-btn-secondary">
-        <span class="action-icon"></span>
+        <span class="action-icon">+</span>
         <span class="action-text">Add Driver</span>
     </a>
     <a href="/add_hospital" class="action-btn action-btn-secondary">
-        <span class="action-icon"></span>
+        <span class="action-icon">+</span>
         <span class="action-text">Add Hospital</span>
     </a>
     <a href="/add_location" class="action-btn action-btn-secondary">
-        <span class="action-icon"></span>
+        <span class="action-icon">+</span>
         <span class="action-text">Add Location</span>
     </a>
 </div>
